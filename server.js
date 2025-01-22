@@ -3,9 +3,11 @@ const mongoose = require('mongoose');
 const articleRouter = require('./routes/articles');
 const app = express();
 
-app.set('view engine','ejs');
+mongoose.connect('mongodb://localhost/blog');
 
-app.use('/articles',articleRouter)
+app.set('view engine','ejs');
+app.use(express.urlencoded({ extended: false }))
+
 
 app.get("/",(req,res)=>{
     // res.send("ServerStarted!!!");
@@ -18,8 +20,14 @@ app.get("/",(req,res)=>{
         title: "Test Article222",
         createdAt : new Date(),
         description : "Test Description222"
+    },{
+        title: "Test Article333",
+        createdAt : new Date(),
+        description : "Test Description333"
     }]
     res.render('articles/index',{articles : articles});
 });
+
+app.use('/articles',articleRouter)
 
 app.listen(5000);
