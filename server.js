@@ -27,7 +27,7 @@ app.get("/",async(req,res)=>{
     //     description : "Test Description333"
     // }]
 
-    const articles = await Article.find()
+    const articles = await Article.find().sort({createdAt:'desc'})
     res.render('articles/index',{articles : articles});
 });
 
